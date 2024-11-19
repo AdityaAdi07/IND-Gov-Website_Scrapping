@@ -12,7 +12,7 @@ def index():
         age = int(request.form['age'])
         state = request.form['state']
 
-        # Run the Scrapy spider and collect data
+ 
         result = subprocess.run(['scrapy', 'crawl', 'infospider', '-O', 'output.json'], capture_output=True, text=True)
 
         if result.returncode == 0:
@@ -30,25 +30,23 @@ def index():
             data = []
             print("Scrapy command failed. Please check the spider.")
 
-        # Separate the schemes based on the state and age factors
         highlighted_data = []
         normal_data = []
 
         for item in data:
             description = item.get('DESCRIPTION', '').lower()
 
-            # Check if the state is present in the description
+     
             if state.lower() in description:
                 item['highlight_state'] = True
 
-                # Check if the description contains the age factor (e.g., 65 or above)
                 if str(age) in description:
-                    item['highlight_age'] = True  # Apply both state and age highlight
+                    item['highlight_age'] = True 
                 highlighted_data.append(item)
             else:
                 normal_data.append(item)
 
-        # Combine highlighted schemes first and normal schemes later
+ 
         data = highlighted_data + normal_data
 
         return render_template('index.html', data=data)
