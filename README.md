@@ -9,13 +9,16 @@ This is a legal, harmless web scrapping project that return the latest and all g
 5. [Fake agent and Proxies](#middlewares.py)
 
 ## Features
-As scrapy is a bot, similar to other commercial and public site indian government website blocks from scraping, so to overcome that, this project inclues 
-Fake Agents, Fake Headers and Proxy sites so the websites treat us like normal user. This can be seen in [middleware file](#middelwares.py).
+- **Robot.txt bypass**: As scrapy is a bot, similar to other commercial and public site indian government website blocks from scraping, so to overcome that, this project inclues Fake Agents, Fake Headers and Proxy sites so the websites treat us like normal user. This can be seen in [middleware file](#middelwares.py).
+- **highlights**: Asks for Gender, Age and State input which procesess and pushes the result at top with highlighting.
+- **Easy to maintain**:Indian Gov site being dynamically updated, this scrapy project requires regular maintenance, which can be done easily as the html inspection code is commented out.
 
 ## Images
+![Screenshot 2024-11-19 203313](https://github.com/user-attachments/assets/8d2c1b03-efbc-4670-b3fd-086e2038bdd6)
+![Screenshot 2024-11-19 203442](https://github.com/user-attachments/assets/70062b64-9c29-4f74-8917-da900ff272bc)
+![Screenshot 2024-11-19 203522](https://github.com/user-attachments/assets/5a2e091c-ef62-4690-a957-c9fd4e52aedd)
 
-![Screenshot 2024-11-17 160044](https://github.com/user-attachments/assets/2191808b-5c8e-4e4f-a6e0-3ea728138d7a)
-![Screenshot 2024-11-17 160401](https://github.com/user-attachments/assets/4c9d8778-7014-4a67-8ce8-65eaab55865a)
+
 
 ## Techstacks
 1. Python
