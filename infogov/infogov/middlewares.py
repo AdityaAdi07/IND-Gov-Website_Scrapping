@@ -145,13 +145,14 @@ class ScrapeOpsFakeBrowserHeaderAgentMiddleware:
         request.headers['sec-fetch-user'] = random_browser_header.get('sec-fetch-user', 'default-value')
         request.headers['sec-fetch-mode'] = random_browser_header.get('sec-fetch-mode', 'navigate')
         request.headers['sec-fetch-site'] = random_browser_header.get('sec-fetch-site', 'default-value')
-        request.headers['sec-ch-ua-platform'] = random_browser_header['sec-ch-ua-platform']
-        request.headers['sec-ch-ua-mobile'] = random_browser_header['sec-ch-ua-mobile']
-        request.headers['sec-ch-ua'] = random_browser_header['sec-ch-ua']
+        request.headers['sec-ch-ua-platform'] = random_browser_header.get('sec-ch-ua-platform', 'Unknown')
+        request.headers['sec-ch-ua-mobile'] = random_browser_header.get('sec-ch-ua-mobile', '?0')
+        request.headers['sec-ch-ua'] = random_browser_header.get('sec-ch-ua', '')
         request.headers['accept'] = random_browser_header['accept']
         request.headers['user-agent'] = random_browser_header['user-agent']
         request.headers['upgrade-insecure-requests'] = random_browser_header['upgrade-insecure-requests']
 
 
         print("***************************NEW HEADER*********")
+        #print(request.headers) 
         #print(request.headers)
