@@ -1,36 +1,301 @@
-import scrapy
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly AI</title>
+    <style>
+      
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-class InfospiderSpider(scrapy.Spider):
-    name = "infospider"
-    allowed_domains = ["www.india.gov.in"]
-    start_urls = ["https://www.india.gov.in/people-groups/life-cycle/senior-citizens"]
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: flex-start;
+            padding-top: 20px; 
+        }
 
-    def __init__(self, state='', *args, **kwargs):
-        super(InfospiderSpider, self).__init__(*args, **kwargs)
-        self.state = state.lower()  # Convert state to lowercase for case-insensitive matching
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
 
-    def parse(self, response):
-        li_elements = response.xpath('//*[@id="metadata_3rd_level"]/div[2]/div/div[5]/div/div/div/div[2]/ol/li')
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-        for li in li_elements:
-            text = li.xpath('.//a/text()').get(default='').strip()
-            url = li.xpath('.//a/@href').get()
-            if url:
-                url = response.urljoin(url)
-            abt = li.xpath('.//div[contains(@class, "field-content")]/p/text()').get(default='').strip()
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
 
-            # Check if the state name is mentioned in the DESCRIPTION
-            is_highlighted = self.state in abt.lower()
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-            yield {
-                'SCHEME': text,
-                'URL': url,
-                'DESCRIPTION': abt,
-                'HIGHLIGHT': is_highlighted  # Add highlight flag
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        table a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
             }
 
-        # Pagination
-        next_page = 'https://www.india.gov.in/people-groups/life-cycle/senior-citizens?page='
-        for i in range(0, 4):
-            next_page_url = next_page + f'{i}'
-            yield response.follow(next_page_url, callback=self.parse)
+            input[type="submit"] {
+                padding: 12px;
+            }
+
+            table th, table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Elderly AI App Request Point</h1>
+    
+        <style>
+            label {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+            }
+    
+            select, input[type="text"], input[type="number"] {
+                padding: 10px;
+                font-size: 16px;
+            }
+    
+            .highlight-state {
+                background-color: #f9e56a;  
+            }
+    
+            .highlight-age {
+                background-color: #a8e6a1;  
+            }
+        </style>
+        
+        <form method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+    
+            <label for="aadhar">Aadhar:</label>
+            <input type="number" id="aadhar" name="aadhar" placeholder="Enter your Aadhar No." required>
+
+
+            <label for="gen">Gender</label>
+            <select id="gen" name="gen" >
+                <option value="" disabled selected>Select your Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Femal</option>
+                <option value="S">Skip</option>
+            </select>
+            
+            
+            
+            
+            <label for="pwd">PWD</label>
+            <label for="yes" class="radio-label">
+                <input type="radio" id="yes" name="pwd" value="Yes" class="radio" onclick="toggleInput(true)"> Yes
+            </label>
+            <label for="no" class="radio-label">
+                <input type="radio" id="no" name="pwd" value="No" class="radio" onclick="toggleInput(false)"> No
+            </label>
+        
+            <div id="pwd-input-container" class="input-container">
+                <label for="pwd-number">Enter Number</label>
+                <input type="number" id="pwd-number" name="pwd-number" placeholder="Enter a number">
+            </div>
+        
+            <style>
+                .input-container {
+                    display: none;
+                    margin-top: 10px;
+                }
+        
+                .radio-label {
+                    margin-right: 10px; 
+                    font-size: 16px;
+                    font-weight: normal;
+                    display: inline-block; 
+                /* Style the number input */
+                #pwd-number {
+                    padding: 10px;
+                    font-size: 16px;
+                    width: 100%;
+                    margin-top: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+        
+                .radio-label {
+                    display: inline-block;
+                    margin-right: 15px;
+                }
+            </style>
+        
+        <script>
+            function toggleInput(show) {
+                const inputContainer = document.getElementById("pwd-input-container");
+                if (show) {
+                    inputContainer.style.display = "block";  
+                } else {
+                    inputContainer.style.display = "none";  
+                }
+            }
+        </script>
+          
+            
+    
+            <label for="state">State:</label>
+            <select id="state" name="state" >
+                <option value="" disabled selected>Select your state</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+            </select>
+    
+            <input type="submit" value="Submit">
+        </form>
+    
+        {% if data %}
+        <h2>Scrapy Data Output</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scheme</th>
+                    <th>URL</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr class="{% if item.get('highlight_state') %}highlight-state{% endif %} {% if item.get('highlight_age') %}highlight-age{% endif %}">
+                    <td>{{ item['SCHEME'] }}</td>
+                    <td><a href="{{ item['URL'] }}" target="_blank">{{ item['URL'] }}</a></td>
+                    <td>{{ item['DESCRIPTION'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No data available.</p>
+        {% endif %}
+    </div>
+    
+    
+
+    <div class="footer">
+        <p>Powered by Flask & Scrapy | Developed by Aditya</p>
+    </div>
+
+</body>
+</html>
