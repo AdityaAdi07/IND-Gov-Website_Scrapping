@@ -7,7 +7,7 @@ class InfospiderSpider(scrapy.Spider):
 
     def __init__(self, state='', *args, **kwargs):
         super(InfospiderSpider, self).__init__(*args, **kwargs)
-        self.state = state.lower()
+        self.state = state.lower() 
 
     def parse(self, response):
         li_elements = response.xpath('//*[@id="metadata_3rd_level"]/div[2]/div/div[5]/div/div/div/div[2]/ol/li')
@@ -19,7 +19,7 @@ class InfospiderSpider(scrapy.Spider):
                 url = response.urljoin(url)
             abt = li.xpath('.//div[contains(@class, "field-content")]/p/text()').get(default='').strip()
 
-      
+            
             is_highlighted = self.state in abt.lower()
 
             yield {
@@ -29,7 +29,6 @@ class InfospiderSpider(scrapy.Spider):
                 'HIGHLIGHT': is_highlighted  
             }
 
-    
         next_page = 'https://www.india.gov.in/people-groups/life-cycle/senior-citizens?page='
         for i in range(0, 4):
             next_page_url = next_page + f'{i}'
