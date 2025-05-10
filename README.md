@@ -14,9 +14,9 @@ This is a legal, harmless web scrapping project that return the latest and all g
 - **Easy to maintain**:Indian Gov site being dynamically updated, this scrapy project requires regular maintenance, which can be done easily as the html inspection code is commented out.
 
 ## Images
-![Screenshot 2024-11-19 203313](https://github.com/user-attachments/assets/8d2c1b03-efbc-4670-b3fd-086e2038bdd6)
-![Screenshot 2024-11-19 203442](https://github.com/user-attachments/assets/70062b64-9c29-4f74-8917-da900ff272bc)
-![Screenshot 2024-11-19 203522](https://github.com/user-attachments/assets/5a2e091c-ef62-4690-a957-c9fd4e52aedd)
+![image](https://github.com/user-attachments/assets/710c86ea-c01b-4f92-8ea3-dc24dd6c21ef)
+![image](https://github.com/user-attachments/assets/2b58ea0f-94d6-4971-8301-f9725a4d0e4e)
+
 
 
 
